@@ -1,6 +1,8 @@
 from mycroft import MycroftSkill, intent_handler
 from os import system as cmd
+cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
 from julia import Main
+cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
 
 
 class JuliaVoiceProgramer(MycroftSkill):
