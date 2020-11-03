@@ -62,10 +62,10 @@ class JuliaVoiceProgramer: #(MycroftSkill):
 
 
 def create_skill():
-    #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
+    cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
     return JuliaVoiceProgramer()
 
 
-skill = create_skill()
-skill.handle_julia_intent()
-skill.handle_type_intent("f(x)=x*3")
+#skill = create_skill()
+#skill.handle_julia_intent()
+#skill.handle_type_intent("f(x)=x*3")
