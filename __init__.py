@@ -1,6 +1,6 @@
 from mycroft import MycroftSkill, intent_handler
 from os import system as cmd
-import julia
+from julia import Main
 
 
 class JuliaVoiceProgramer(MycroftSkill):
@@ -14,7 +14,7 @@ class JuliaVoiceProgramer(MycroftSkill):
     def handle_julia_intent(self):
         self.acknowledge()
         #self.make_repl()
-        self.repl = julia.Main
+        self.repl = Main
         self.acknowledge()
         self.speak("your julia console is ready sir")
 
