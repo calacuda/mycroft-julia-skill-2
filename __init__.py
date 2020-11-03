@@ -15,11 +15,11 @@ class JuliaVoiceProgramer: #(MycroftSkill):
         
     @intent_handler("program.intent")
     def handle_julia_intent(self):
-        #self.acknowledge()
+        self.acknowledge()
         #self.make_repl()
         #self.repl = Main
         #self.acknowledge()
-        #self.speak("your julia console is ready sir")
+        self.speak("your julia console is ready sir")
         pass
         
     @intent_handler("type.intent")
