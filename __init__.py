@@ -25,8 +25,8 @@ class JuliaVoiceProgramer: #(MycroftSkill):
     @intent_handler("type.intent")
     def handle_type_intent(self, code):
         #cmd(f'notify-send "testing" "type code :  {code.data.get("code")}"')
-        #self.acknowledge()
-        #code = self.parse(code.data.get("code"))
+        self.acknowledge()
+        code = self.parse(code.data.get("code"))
         cmd(f'notify-send "testing" "code :  {code}"')
         output = Main.eval(code)
         cmd(f'notify-send "testing" "output :  {output}"')
