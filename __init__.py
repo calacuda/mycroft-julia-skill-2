@@ -15,6 +15,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         self.acknowledge()
         #self.make_repl()
         self.repl = julia.Main
+        self.acknowledge()
         self.speak("your julia console is ready sir")
 
     @intent_handler("type.intent")
