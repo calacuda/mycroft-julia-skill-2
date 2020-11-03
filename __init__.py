@@ -54,4 +54,5 @@ class JuliaVoiceProgramer(MycroftSkill):
 
 
 def create_skill():
+    cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
     return JuliaVoiceProgramer()
