@@ -1,5 +1,6 @@
 from mycroft import MycroftSkill, intent_handler
 from os import system as cmd
+import sys
 #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
 from julia import Main
 #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
@@ -26,7 +27,10 @@ class JuliaVoiceProgramer(MycroftSkill):
         self.acknowledge()
         code = self.parse(code.data.get("code"))
         cmd(f'notify-send "testing" "code :  {code}"')
-        output = self.send_out(code)
+        try:
+            output = self.repl.eval(code)
+        except:
+            cmd(f'notify-send "testing" "output-error :  {sys.exc_info()[0]}"')
         cmd(f'notify-send "testing" "output :  {output}"')
         self.speak(output)
 
