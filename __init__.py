@@ -25,7 +25,9 @@ class JuliaVoiceProgramer(MycroftSkill):
         #cmd(f'notify-send "testing" "type code :  {code.data.get("code")}"')
         self.acknowledge()
         code = self.parse(code.data.get("code"))
+        cmd(f'notify-send "testing" "code :  {code}"')
         output = self.send_out(code)
+        cmd(f'notify-send "testing" "output :  {output}"')
         self.speak(output)
 
     def send_out(self, payload):
