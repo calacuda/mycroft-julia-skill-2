@@ -6,7 +6,7 @@ from julia import Main
 #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
 
 
-class JuliaVoiceProgramer: #(MycroftSkill):
+class JuliaVoiceProgramer(MycroftSkill):
     def __init__(self):
         super().__init__()
         
@@ -15,20 +15,22 @@ class JuliaVoiceProgramer: #(MycroftSkill):
         
     @intent_handler("program.intent")
     def handle_julia_intent(self):
-        #self.acknowledge()
+        self.acknowledge()
         #self.make_repl()
-        #self.repl = Main
-        #self.acknowledge()
-        #self.speak("your julia console is ready sir")
-        pass
-        
+        self.repl = Main
+        self.acknowledge()
+        self.speak("your julia console is ready sir")
+
     @intent_handler("type.intent")
     def handle_type_intent(self, code):
         #cmd(f'notify-send "testing" "type code :  {code.data.get("code")}"')
-        #self.acknowledge()
+        self.acknowledge()
         #code = self.parse(code.data.get("code"))
         cmd(f'notify-send "testing" "code :  {code}"')
-        output = Main.eval(code)
+        try:
+            output = self.repl.eval(code)
+        except:
+            cmd(f'notify-send "testing" "output-error :  {sys.exc_info()[0]}"')
         cmd(f'notify-send "testing" "output :  {output}"')
         self.speak(output)
 
