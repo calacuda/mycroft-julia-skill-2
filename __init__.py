@@ -28,7 +28,10 @@ class JuliaVoiceProgramer: #(MycroftSkill):
         self.acknowledge()
         code = self.parse(code.data.get("code"))
         cmd(f'notify-send "testing" "code :  {code}"')
-        output = Main.eval(code)
+        try:
+            output = Main.eval(code)
+        except Exception as e:
+            cmd(f'notify-send "error" "{e}"')
         cmd(f'notify-send "testing" "output :  {output}"')
         self.speak(output)
         return True
