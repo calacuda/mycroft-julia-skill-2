@@ -31,7 +31,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         try:
             output = Main.eval(code)
         except:
-            cmd(f'notify-send "error"')
+            cmd(f'notify-send "error" "error"')
         cmd(f'notify-send "testing" "output :  {output}"')
         self.speak(output)
         #return True
