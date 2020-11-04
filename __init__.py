@@ -1,14 +1,21 @@
 from mycroft import MycroftSkill, intent_handler
 from os import system as cmd
-import sys
+#import sys
+#import pty
+import subprocess
+from pynput.keyboard import Key, Controller
 #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
-from julia import Main
+#from julia import Main
 #cmd("notify-send 'Mycroft' 'Julia imported'")
+
+
+pass_file = "/tmp/julia-voice-programming.txt"
 
 
 class JuliaVoiceProgramer(MycroftSkill):
     def __init__(self):
         super().__init__()
+        self.keyboard = Controller()
         
     def initialize(self):
         pass
@@ -16,9 +23,7 @@ class JuliaVoiceProgramer(MycroftSkill):
     @intent_handler("program.intent")
     def handle_julia_intent(self):
         self.acknowledge()
-        #self.make_repl()
-        #self.repl = Main
-        #self.acknowledge()
+        self.repl = subprocess.call("urxvt -e /usr/bin/python3 /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py ")
         self.speak("your julia console is ready sir")
         pass
         
@@ -27,14 +32,15 @@ class JuliaVoiceProgramer(MycroftSkill):
         #cmd(f'notify-send "testing" "type code :  {code.data.get("code")}"')
         self.acknowledge()
         code = self.parse(code.data.get("code"))
-        cmd(f'notify-send "testing" "code :  {code}"')
-        output = Main.eval(code)
-        cmd(f'notify-send "testing" "output :  {output}"')
-        self.speak(output)
+        self.keyboard.type(code)
+        self.keyboard.press(Key.enter)
+        self.keyboard.release(Key.enter)
+        #cmd(f'notify-send "testing" "code :  {code}"')
+        #output = Main.eval(code)
+        #cmd(f'notify-send "testing" "output :  {output}"')
+        with open(pass_file, 'r') as pf:
+            self.speak(pf.read())
         #return True
-
-    def send_out(self, payload):
-        return self.repl.eval(payload)
 
     def parse(self, utterance):
         #cmd(f'notify-send "debug" "parse :  {utterance}"')
@@ -55,10 +61,10 @@ class JuliaVoiceProgramer(MycroftSkill):
         return code
     
     def shutdown(self):
-        pass
+        self.stop()
         
     def stop(self):
-        pass
+        self.repl.terminate()
 
 
 def create_skill():
