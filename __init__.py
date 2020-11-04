@@ -23,7 +23,7 @@ class JuliaVoiceProgramer(MycroftSkill):
     @intent_handler("program.intent")
     def handle_julia_intent(self):
         self.acknowledge()
-        self.repl = subprocess.call("urxvt -e /usr/bin/python3 /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py ")
+        self.repl = subprocess.call("urxvt -e /usr/bin/python3 /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py ", shell=True)
         self.speak("your julia console is ready sir")
         pass
         
