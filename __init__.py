@@ -3,7 +3,7 @@ from os import system as cmd
 import sys
 #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
 from julia import Main
-#cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
+cmd("notify-send 'Mycroft' 'Julia imported'")
 
 
 class JuliaVoiceProgramer: #(MycroftSkill):
@@ -65,7 +65,7 @@ class JuliaVoiceProgramer: #(MycroftSkill):
 
 
 def create_skill():
-    #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
+    cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
     return JuliaVoiceProgramer()
 
 
