@@ -17,7 +17,7 @@ shell = "julia"
 def read(fd):
     data = os.read(fd, 1024)
     #script.write(data)
-    with open(pass_file, 'wa') as pf:
+    with open(pass_file, 'a') as pf:
         pf.write(data.decode("utf-8"))
     return data
 
