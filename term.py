@@ -8,6 +8,7 @@ by: Calacuda | MIT Licence
 
 
 import pty
+import os
 
 
 pass_file = "/tmp/julia-voice-programming.txt"
