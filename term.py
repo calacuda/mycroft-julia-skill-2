@@ -17,7 +17,7 @@ shell = "julia"
 def read(fd):
     data = os.read(fd, 1024)
     #script.write(data)
-    if "julia>" not in data.decode("utf8"):
+    if "julia> " != data.decode("utf8"):
         with open(pass_file, 'w') as pf:
             pf.write(data.decode("utf-8"))
     return data
