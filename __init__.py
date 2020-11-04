@@ -24,17 +24,14 @@ class JuliaVoiceProgramer(MycroftSkill):
         
     @intent_handler("type.intent")
     def handle_type_intent(self, code):
-        cmd(f'notify-send "testing" "type code :  {code.data.get("code")}"')
+        #cmd(f'notify-send "testing" "type code :  {code.data.get("code")}"')
         self.acknowledge()
         code = self.parse(code.data.get("code"))
         cmd(f'notify-send "testing" "code :  {code}"')
-        try:
-            output = Main.eval(code)
-        except Exception as e:
-            cmd(f'notify-send "error" "{e}"')
+        output = Main.eval(code)            #cmd(f'notify-send "error" "{e}"')
         cmd(f'notify-send "testing" "output :  {output}"')
         self.speak(output)
-        return True
+        #return True
 
     def send_out(self, payload):
         return self.repl.eval(payload)
