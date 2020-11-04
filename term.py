@@ -17,9 +17,8 @@ shell = "julia"
 def read(fd):
     data = os.read(fd, 1024)
     #script.write(data)
-    if "[0K [32m [1mjulia>  [0m [0m  [7C  [7C" != data.decode("utf8"):
-        with open(pass_file, 'w') as pf:
-            pf.write(data.decode("utf-8"))
+    with open(pass_file, 'wa') as pf:
+        pf.write(data.decode("utf-8"))
     return data
 
 
