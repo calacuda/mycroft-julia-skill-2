@@ -62,7 +62,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         #cmd(f'notify-send "debug" "code :  {code}"')
         if len([i for i in code if i == "("]) > len([i for i in code if i == ")"]):
             code += ")"
-        elif len([i for i in code if i in {"(", ")"}]):
+        elif len([i for i in code if i in {"(", ")"}]) == 0:
             code += "()"
         #cmd(f'notify-send "debug" "parse returning {code}"')
         return code
