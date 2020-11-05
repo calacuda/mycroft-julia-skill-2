@@ -41,7 +41,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         #cmd(f'notify-send "testing" "output :  {output}"')
         #time.sleep(2)
         with open(pass_file, 'r') as pf:
-            cmd(f'notify-send "testing" "{pf.read()}"')
+            #cmd(f'notify-send "testing" "{pf.read()}"')
             self.speak(pf.read().replace("julia>", "" ))
         with open(pass_file, 'w') as pf:
             pass
