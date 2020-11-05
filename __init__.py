@@ -39,6 +39,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         #output = Main.eval(code)
         #cmd(f'notify-send "testing" "output :  {output}"')
         with open(pass_file, 'r') as pf:
+            cmd(f'notify-send "testing" "{pf.read()}"')
             self.speak(pf.read())
         #return True
 
