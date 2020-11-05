@@ -13,9 +13,11 @@ import re
 
 
 pass_file = "/tmp/julia-voice-programming.txt"
-hist_file = pass_file[:4]+"_hist.txt"
+hist_file = pass_file[:-4]+"_hist.txt"
 shell = "julia"
 ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+
+print(hist_file)
 
 def read(fd):
     data = os.read(fd, 1024)
