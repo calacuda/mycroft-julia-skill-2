@@ -1,5 +1,6 @@
 from mycroft import MycroftSkill, intent_handler
 from os import system as cmd
+import time
 #import sys
 #import pty
 import subprocess
@@ -39,7 +40,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         #output = Main.eval(code)
         #cmd(f'notify-send "testing" "output :  {output}"')
         with open(pass_file, 'r') as pf:
-            cmd(f'notify-send "testing" "{pf.read()}"')
+            cmd(f'notify-send "testing" "{pf.readlines()}"')
             self.speak(pf.read())
         #return True
 
@@ -58,6 +59,8 @@ class JuliaVoiceProgramer(MycroftSkill):
         #cmd(f'notify-send "debug" "code :  {code}"')
         if len([i for i in code if i == "("]) > len([i for i in code if i == ")"]):
             code += ")"
+        elif len([i for i in code if i in {"(", ")"}]):
+            code += "()"
         #cmd(f'notify-send "debug" "parse returning {code}"')
         return code
     
