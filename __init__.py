@@ -6,7 +6,7 @@ import subprocess
 from pynput.keyboard import Key, Controller
 #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
 #from julia import Main
-cmd("notify-send 'Mycroft' 'all imported'")
+#cmd("notify-send 'Mycroft' 'all imported'")
 
 
 pass_file = "/tmp/julia-voice-programming.txt"
@@ -68,7 +68,7 @@ class JuliaVoiceProgramer(MycroftSkill):
 
 
 def create_skill():
-    cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
+    #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
     return JuliaVoiceProgramer()
 
 
