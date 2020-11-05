@@ -43,8 +43,8 @@ class JuliaVoiceProgramer(MycroftSkill):
         with open(pass_file, 'r') as pf:
             cmd(f'notify-send "testing" "{pf.read()}"')
             self.speak(pf.read())
-        #with open(pass_file, 'w') as pf:
-        #    pass
+        with open(pass_file, 'w') as pf:
+            pass
         #return True
 
     def parse(self, utterance):
