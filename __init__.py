@@ -42,7 +42,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         time.sleep(2)
         with open(pass_file, 'r') as pf:
             cmd(f'notify-send "testing" "{pf.read()}"')
-            self.speak(pf.readlines()[-1])
+            self.speak(pf.read())
         #with open(pass_file, 'w') as pf:
         #    pass
         #return True
