@@ -13,7 +13,7 @@ from pynput.keyboard import Key, Controller
 
 pass_file = "/tmp/julia-voice-programming.txt"
 mycroft_python_dir = "/".join(mycroft.__file__.split("/")[:-2]) + "/.venv/bin/python3"
-print(mycroft_python_dir)
+# print(mycroft_python_dir)
 
 
 class JuliaVoiceProgramer(MycroftSkill):
