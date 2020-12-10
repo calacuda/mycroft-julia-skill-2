@@ -40,11 +40,11 @@ class JuliaVoiceProgramer(MycroftSkill):
         #output = Main.eval(code)
         #cmd(f'notify-send "testing" "output :  {output}"')
         #time.sleep(2)
-        with open(pass_file, 'r') as pf:
+        #with open(pass_file, 'r') as pf:
             #cmd(f'notify-send "testing" "{pf.read()}"')
-            self.speak(pf.read().replace("julia>", "" ))
-        with open(pass_file, 'w') as pf:
-            pass
+        #    self.speak(pf.read().replace("julia>", "" ))
+        #with open(pass_file, 'w') as pf:
+        #    pass
         #return True
 
     def parse(self, utterance):
