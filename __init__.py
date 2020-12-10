@@ -1,4 +1,5 @@
 from mycroft import MycroftSkill, intent_handler
+import mycroft
 from os import system as cmd
 import time
 #import sys
@@ -11,6 +12,8 @@ from pynput.keyboard import Key, Controller
 
 
 pass_file = "/tmp/julia-voice-programming.txt"
+mycroft_python_dir = "/".join(mycroft.__file__.split("/")[:-2]) + "/.venv/bin/python3"
+print(mycroft_python_dir)
 
 
 class JuliaVoiceProgramer(MycroftSkill):
@@ -24,7 +27,7 @@ class JuliaVoiceProgramer(MycroftSkill):
     @intent_handler("program.intent")
     def handle_julia_intent(self):
         self.acknowledge()
-        self.repl = subprocess.Popen("$TERMINAL -e python3 /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py ", shell=True)
+        self.repl = subprocess.Popen(f"$TERMINAL -e {mycroft_python_dir} /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py ", shell=True)
         self.speak("your julia console is ready sir")
         pass
         
