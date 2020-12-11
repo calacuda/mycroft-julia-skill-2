@@ -41,22 +41,22 @@ class JuliaVoiceProgramer(MycroftSkill):
         call = f"{skill_dir + 'term.sh'} {session_name} {mycroft_python_dir}"
         #call = f"./term.sh {session_name} {mycroft_python_dir}"
         self.repl = subprocess.Popen(call, shell=True)
-        print("repl : ", self.repl)
+        #print("repl : ", self.repl)
         connected = False
         while not connected:
-            print("stuck")
+            #print("stuck")
             try:
                 self.server = libtmux.Server()
                 self.session = self.server.find_where({ "session_name": session_name })
             except libtmux.exc.LibTmuxException:
                 time.sleep(0.1)
             else:
-                print("exceting while")
+                #print("exceting while")
                 connected = True
-        print("free willie")
-        #self.window = self.session.attached_window
-        #self.pane = window.attached_pane
-        #self.speak("your julia console is ready sir")
+        #print("free willie")
+        self.window = self.session.attached_window
+        self.pane = window.attached_pane
+        self.speak("your julia console is ready sir")
         #pass
         
     @intent_handler("enter_code.intent")
