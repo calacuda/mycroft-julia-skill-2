@@ -1,1 +1,1 @@
-pynput==1.7.1
+libtmux==0.8.5 

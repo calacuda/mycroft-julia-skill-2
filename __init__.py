@@ -5,7 +5,8 @@ import time
 #import sys
 #import pty
 import subprocess
-from pynput.keyboard import Key, Controller
+#from pynput.keyboard import Key, Controller
+import libtmux
 #cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
 #from julia import Main
 #cmd("notify-send 'Mycroft' 'all imported'")
@@ -19,7 +20,11 @@ mycroft_python_dir = "/".join(mycroft.__file__.split("/")[:-2]) + "/.venv/bin/py
 class JuliaVoiceProgramer(MycroftSkill):
     def __init__(self):
         super().__init__()
-        self.keyboard = Controller()
+        #self.keyboard = Controller()
+        self.repl = None
+        self.session = None
+        self.window = None
+        self.pane = None
         
     def initialize(self):
         pass
@@ -27,18 +32,28 @@ class JuliaVoiceProgramer(MycroftSkill):
     @intent_handler("program.intent")
     def handle_julia_intent(self):
         self.acknowledge()
-        self.repl = subprocess.Popen(f"$TERMINAL -e {mycroft_python_dir} /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py ", shell=True)
+        # self.repl = subprocess.Popen(f"$TERMINAL -e {mycroft_python_dir} /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py ", shell=True)
+        session_name = "julia_voice_programer"
+        tmux = f"tmux new-session -s {session_name} -n {session_name.replace('_', ' ')}"
+        term = f"{mycroft_python_dir} /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py"
+        self.repl = subprocess.Popen(f"$TERMINAL -e {tmux} {term}", shell=True)
+        self.session = server.find_where({ "session_name": session_name })
+        self.window = self.session.attached_window
+        self.pane = window.attached_pane
         self.speak("your julia console is ready sir")
         pass
         
-    @intent_handler("type.intent")
+    @intent_handler("enter_code.intent")
     def handle_type_intent(self, code):
         #cmd(f'notify-send "testing" "type code :  {code.data.get("code")}"')
         self.acknowledge()
         code = self.parse(code.data.get("code"))
-        self.keyboard.type(code)
-        self.keyboard.press(Key.enter)
-        self.keyboard.release(Key.enter)
+        self.pane.send_keys(code)
+        
+        #self.keyboard.type(code)
+        #self.keyboard.press(Key.enter)
+        #self.keyboard.release(Key.enter)
+
         #cmd(f'notify-send "testing" "code :  {code}"')
         #output = Main.eval(code)
         #cmd(f'notify-send "testing" "output :  {output}"')
@@ -75,6 +90,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         
     def stop(self):
         self.repl.terminate()
+        self.session.kill_session()
 
 
 def create_skill():
