@@ -28,7 +28,11 @@ class JuliaVoiceProgramer(MycroftSkill):
         #self.pane = None
         
     def initialize(self):
-        pass
+        self.repl = None
+        self.server = None
+        self.session = None
+        self.window = None
+        self.pane = None
         
     @intent_handler("program.intent")
     def handle_julia_intent(self):
