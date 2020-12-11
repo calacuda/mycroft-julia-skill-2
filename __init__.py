@@ -22,6 +22,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         super().__init__()
         #self.keyboard = Controller()
         self.repl = None
+        self.server = None
         self.session = None
         self.window = None
         self.pane = None
@@ -37,6 +38,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         tmux = f"tmux new-session -s {session_name} -n {session_name.replace('_', ' ')}"
         term = f"{mycroft_python_dir} /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py"
         self.repl = subprocess.Popen(f"$TERMINAL -e {tmux} {term}", shell=True)
+        self.server = self.libtmux.Server()
         self.session = server.find_where({ "session_name": session_name })
         self.window = self.session.attached_window
         self.pane = window.attached_pane
