@@ -55,7 +55,7 @@ class JuliaVoiceProgramer(MycroftSkill):
                 connected = True
         #print("free willie")
         self.window = self.session.attached_window
-        self.pane = window.attached_pane
+        self.pane = self.window.attached_pane
         self.speak("your julia console is ready sir")
         #pass
         
