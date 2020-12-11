@@ -21,11 +21,11 @@ class JuliaVoiceProgramer(MycroftSkill):
     def __init__(self):
         super().__init__()
         #self.keyboard = Controller()
-        self.repl = None
-        self.server = None
-        self.session = None
-        self.window = None
-        self.pane = None
+        #self.repl = None
+        #self.server = None
+        #self.session = None
+        #self.window = None
+        #self.pane = None
         
     def initialize(self):
         pass
