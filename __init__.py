@@ -13,15 +13,15 @@ mycroft_python_dir = "/".join(mycroft.__file__.split("/")[:-2]) + "/.venv/bin/py
 class JuliaVoiceProgramer(MycroftSkill):
     def __init__(self):
         super().__init__()
-        
+
     def initialize(self):
-        #self.repl = None
-        #self.server = None
-        #self.session = None
-        #self.window = None
-        #self.pane = None
+        self.repl = None
+        self.server = None
+        self.session = None
+        self.window = None
+        self.pane = None
         pass
-    
+
     @intent_handler("program.intent")
     def handle_julia_intent(self):
         self.acknowledge()
@@ -29,20 +29,22 @@ class JuliaVoiceProgramer(MycroftSkill):
         skill_dir = "/opt/mycroft/skills/mycroft-julia-skill-2.calacuda/"
         call = f"{skill_dir + 'term.sh'} {session_name} {mycroft_python_dir}"
         #call = f"./term.sh {session_name} {mycroft_python_dir}"
+        #call = f"$TERMINAL -e tmux new-session -s {session_name} -n {session_name}"
         self.repl = subprocess.Popen(call, shell=True)
+        time.sleep(0.1)
         #print("repl : ", self.repl)
         connected = False
         while not connected:
-            print("stuck")
+            print("looking for the tmux server")
             try:
-                self.server = libtmux.Server()
-                self.session = self.server.find_where({ "session_name": session_name })
-                #connected = True
-                print(self.session)
+                self.tmux_server = libtmux.Server(session_name)
+                self.session = self.tmux_server.find_where({"session_name": session_name})
+                # connected = True
+                print(self.tmux_server.list_sessions())
             except libtmux.exc.LibTmuxException:
                 time.sleep(0.1)
             else:
-                print("exceting while")
+                print("found tmux server")
                 connected = True
         print("free willie")
         self.window = self.session.attached_window
