@@ -2,30 +2,17 @@ from mycroft import MycroftSkill, intent_handler
 import mycroft
 from os import system as cmd
 import time
-#import sys
-#import pty
 import subprocess
-#from pynput.keyboard import Key, Controller
 import libtmux
-#cmd("notify-send 'Mycroft' 'Julia Voice Programer installed'")
-#from julia import Main
-#cmd("notify-send 'Mycroft' 'all imported'")
 
 
 pass_file = "/tmp/julia-voice-programming.txt"
 mycroft_python_dir = "/".join(mycroft.__file__.split("/")[:-2]) + "/.venv/bin/python3"
-# print(mycroft_python_dir)
 
 
 class JuliaVoiceProgramer(MycroftSkill):
     def __init__(self):
         super().__init__()
-        #self.keyboard = Controller()
-        #self.repl = None
-        #self.server = None
-        #self.session = None
-        #self.window = None
-        #self.pane = None
         
     def initialize(self):
         self.repl = None
@@ -45,17 +32,17 @@ class JuliaVoiceProgramer(MycroftSkill):
         #print("repl : ", self.repl)
         connected = False
         while not connected:
-            #print("stuck")
+            print("stuck")
             try:
                 self.server = libtmux.Server()
                 self.session = self.server.find_where({ "session_name": session_name })
-                connected = True
+            #    connected = True
             except libtmux.exc.LibTmuxException:
                 time.sleep(0.1)
-            #else:
-                #print("exceting while")
-            #    connected = True
-        #print("free willie")
+            else:
+                print("exceting while")
+                connected = True
+        print("free willie")
         self.window = self.session.attached_window
         self.pane = self.window.attached_pane
         self.speak("your julia console is ready sir")

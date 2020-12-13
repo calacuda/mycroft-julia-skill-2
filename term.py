@@ -24,60 +24,73 @@ ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
 # print(hist_file)
 
 
-def verbalize():
+def verbalize_old():
+    """
+    depricated, does not work as intended
+    """
+    #print("verbalized called")
     with open(pass_file, 'r') as df:
+        #print("pass_file opened")
         lines = df.readlines()
         i = -1
-        try:
+        #try:
+        if len(lines) > 0:
             line = lines[i].strip().replace('("', " ").replace('")', " ")
-        except IndexError:
+        else:
+            print("death")
             return
+        #except IndexError:
+        #    return
         if line[0:6] != "julia>":
+            print("trying to speak")
             try:
                 # print(line)
                 json_str = "{\"utterance\": \"" + line + "\"}"
                 send("speak", json.loads(json_str))
-                with open(err_file, 'a') as ef:
-                    ef.write(f"line :  <{line}>")
+                #with open(err_file, 'a') as ef:
+                #    ef.write(f"line :  <{line}>")
             except json.decoder.JSONDecodeError as error:
                 with open(err_file, 'a') as ef:
                     ef.write(json_str + "\n\n")
                     ef.write(str(error) + "\n\n")
-                    
-        #try:
-        #    # if "julia>" in hf.readlines()[-1]:
-        #    
-        #    with open(succ_file, 'a') as sf:
-        #        sf.write(line)
-        #    # os.system('notify-send "trying" "trying so hard" & ')
-        #except json.decoder.JSONDecodeError:
-        #    with open(err_file, 'a') as ef:
-        #        ef.write(line)
-        #    send("speak", json.loads('{"utterance": "no"}'))
+
+
+def verbalize_new():
+    with open(pass_file, 'r') as df:
+        #print("pass_file opened")
+        lines = [l for l in df.readlines() if l != "\n"]
+        if len(lines) > 0:
+            line = lines[-1].strip().replace('("', " ").replace('")', " ")
+        else:
+            #print("lines variable non exsistant")
+            return
+        if line[0:6] != "julia>" and len(line) > 1:
+            #print("trying to speak")
+            json_str = "{\"utterance\": \"" + line + "\"}"
+            try:
+                send("speak", json.loads(json_str))
+            except json.decoder.JSONDecodeError:
+                #print("json error : ", line)
+                pass
 
 
 def read(fd):
     data = os.read(fd, 1024)
-    # readable = ansi_escape.sub('', data.decode("utf-8"))
-    # script.write(data)
     readable = ansi_escape.sub('', data.decode("utf-8"))
-    bare = readable.replace("\n", "").replace("\r", "")
-    #if "julia" in ansi_escape.sub('', data.decode("utf-8")):
-        #print("foobar")
-        #verbalize()
-    with open(pass_file, 'a') as pf:
-        pf.write(bare + "\n" if bare else "")
-    with open(hist_file, 'a') as hf:
-        hf.write(readable)
-    verbalize()
-    return data
-
-
-def read_test(fd):
-    data = os.read(fd, 1024)
-    readable = ansi_escape.sub('', data.decode("utf-8"))
-    print(readable)
+    bare = readable.replace("\r", "")
+    if bare[0:6] != "julia>":
+        with open(pass_file, 'a') as pf:
+            pf.write(bare + "\n" if bare else "")
+        with open(hist_file, 'a') as hf:
+            hf.write(readable)
+    else:
+        with open(pass_file, 'w') as pf:
+            pass
+    #print("before verbalize")
+    verbalize_new()
+    #print("after verbalize")
     return data
 
 
 pty.spawn(shell, read)
+print("\n\n<ended>\n\n")
