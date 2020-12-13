@@ -15,12 +15,13 @@ class JuliaVoiceProgramer(MycroftSkill):
         super().__init__()
         
     def initialize(self):
-        self.repl = None
-        self.server = None
-        self.session = None
-        self.window = None
-        self.pane = None
-        
+        #self.repl = None
+        #self.server = None
+        #self.session = None
+        #self.window = None
+        #self.pane = None
+        pass
+    
     @intent_handler("program.intent")
     def handle_julia_intent(self):
         self.acknowledge()
