@@ -52,11 +52,12 @@ class JuliaVoiceProgramer(MycroftSkill):
             try:
                 self.server = libtmux.Server()
                 self.session = self.server.find_where({ "session_name": session_name })
+                connected = True
             except libtmux.exc.LibTmuxException:
                 time.sleep(0.1)
-            else:
+            #else:
                 #print("exceting while")
-                connected = True
+            #    connected = True
         #print("free willie")
         self.window = self.session.attached_window
         self.pane = self.window.attached_pane
