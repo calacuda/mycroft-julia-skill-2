@@ -37,10 +37,7 @@ class JuliaVoiceProgramer(MycroftSkill):
     @intent_handler("program.intent")
     def handle_julia_intent(self):
         self.acknowledge()
-        # self.repl = subprocess.Popen(f"$TERMINAL -e {mycroft_python_dir} /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py ", shell=True)
         session_name = "Julia_Voice_Programer"
-        #tmux = f"tmux new-session -s {session_name} -n {session_name.replace('_', ' ')}"
-        #term = f"{mycroft_python_dir} /opt/mycroft/skills/mycroft-julia-skill-2.calacuda/term.py"
         skill_dir = "/opt/mycroft/skills/mycroft-julia-skill-2.calacuda/"
         call = f"{skill_dir + 'term.sh'} {session_name} {mycroft_python_dir}"
         #call = f"./term.sh {session_name} {mycroft_python_dir}"
