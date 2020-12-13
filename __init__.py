@@ -37,7 +37,8 @@ class JuliaVoiceProgramer(MycroftSkill):
             try:
                 self.server = libtmux.Server()
                 self.session = self.server.find_where({ "session_name": session_name })
-            #    connected = True
+                #connected = True
+                print(self.session)
             except libtmux.exc.LibTmuxException:
                 time.sleep(0.1)
             else:
