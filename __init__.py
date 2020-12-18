@@ -83,7 +83,7 @@ class JuliaVoiceProgramer(MycroftSkill):
     def parse(self, utterance):
         #cmd(f'notify-send "debug" "parse :  {utterance}"')
         code = utterance.lower()
-        if " = " in code or code.split(" ")[1] == "of":
+        if " equals " in code or code.split(" ")[1] == "of":
             return self.func_parser(code)
         else:
             return self.gen_parser(code)
@@ -93,7 +93,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         parses one line function deffenitions.
         """
         try:
-            deff, code = text.split(" = ")
+            deff, code = text.split(" equals ")
             code = self.gen_parser(code)
         except ValueError:
             deff = text
