@@ -60,9 +60,9 @@ class JuliaVoiceProgramer(MycroftSkill):
     @intent_handler("enter_code.intent")
     def handle_type_intent(self, code):
         #cmd(f'notify-send "testing" "type code :  {code.data.get("code")}"')
-        #self.acknowledge()
-        #code = self.parse(code.data.get("code"))
-        code = self.parse(code)
+        self.acknowledge()
+        code = self.parse(code.data.get("code"))
+        #code = self.parse(code)
         self.pane.send_keys(code)
         return True
         #self.keyboard.type(code)
