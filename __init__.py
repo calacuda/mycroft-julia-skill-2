@@ -63,7 +63,11 @@ class JuliaVoiceProgramer(MycroftSkill):
         self.acknowledge()
         code = self.parse(code.data.get("code"))
         #code = self.parse(code)
-        self.pane.send_keys(code)
+        try:
+            self.pane.send_keys(code)
+        except AttributeError:
+            self.speak("no julia seesion available, please start one first.")
+            return False
         return True
         #self.keyboard.type(code)
         #self.keyboard.press(Key.enter)
