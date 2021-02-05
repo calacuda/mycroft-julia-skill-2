@@ -66,7 +66,7 @@ class JuliaVoiceProgramer(MycroftSkill):
         try:
             self.pane.send_keys(code)
         except AttributeError:
-            self.speak("no julia seesion available, please start one first.")
+            self.speak("no julia session available, please start one first.")
             return False
         return True
         #self.keyboard.type(code)
